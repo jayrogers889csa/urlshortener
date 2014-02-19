@@ -4,9 +4,8 @@ get '/' do
 end
 
 post '/urls' do
-  p params.inspect
-  p params[:post].inspect
 
+  Url.create(params[:post])
   # Post.create(params[:post])
   # @url = params[:post][:url]
   # create a new Url
