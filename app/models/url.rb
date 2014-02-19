@@ -20,17 +20,20 @@ class Url < ActiveRecord::Base
   end
 
   def validate_url
-    if self.url == ""
-      return errors.add(:url, "You must enter a url into the form!")
+    if self.url == "" || ! self.url.match(/.+\.\w{2,}/)
+      return errors.add(:url, "This is not a valid web address!")
     end
     unless self.url.match(/\Ahttps?:\/\//)
       self.url = "http://".concat(self.url)
     end
-    binding.pry
-    response = Net::HTTP.get_response(URI(self.url))
-    binding.pry
-    unless 200 <= response.code.to_i && response.code.to_i < 400
-      return errors.add(:url, "this is not a valid web address")
+    begin
+      parsed_uri = URI(self.url)
+      rescue
+      return errors.add(:url, "This is not a valid web address!")
+    end
+    response = Net::HTTP.get_response(parsed_uri)
+    unless 200 <= response.code.to_i && response.code.to_i < 400 && response.code.to_i != 303
+      return errors.add(:url, "This is not a valid web address!")
     end
   end
 end

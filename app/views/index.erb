@@ -1,6 +1,12 @@
 <div class="container">
+   <% if @url and @url.errors.any? %>
 
-  <% if @url %>
+      <ul>
+      <% @url.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+  <% elsif @url %>
     <h2>Your shortened url: http://oursite.<%= @url.shortened_url %></h2>
     <p>Enter another URL to shorten!
   <% else %>
@@ -12,12 +18,6 @@
     <input type="text" name="post[url]">
     <input type="submit">
   </form>
-
-<!--   <h3>URLs You Have Shortened:</h3>
-  <% @urls.each do |url| %>
-    <%= url %>
-    <br>
-  <% end %> -->
 
   <h3>URLs You Have Shortened:</h3>
   <% Url.all.each do |url| %>

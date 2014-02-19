@@ -1,3 +1,6 @@
+require 'pry'
+require 'pry-nav'
+
 get '/' do
   @urls = Url.all.map {|url| url.listify}
   erb :index
