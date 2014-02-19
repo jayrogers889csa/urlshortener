@@ -1,18 +1,22 @@
 <div class="container">
 
-  if @url
-    confirm posting
-  else
-    greet
+  <% if @url %>
+    <h2>Your shortened url: http://oursite.<%= @url.shortened_url %></h2>
+    <p>Enter another URL to shorten!
+  <% else %>
     <h1>Welcome to URL Shortener!</h1>
-    <p>Please give a URL to shorten!</p>
-  end
+    <p>Please give a URL to shorten:</p>
+  <% end %>
 
   <form method="POST" action="/urls">
     <input type="text" name="post[url]">
     <input type="submit">
   </form>
 
-  (list urls down here)
+  <h3>URLs You Have Shortened:</h3>
+  <% @urls.each do |url| %>
+    <%= url %>
+    <br>
+  <% end %>
 
 </div>
