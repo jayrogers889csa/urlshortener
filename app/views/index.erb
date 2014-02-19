@@ -1,10 +1,18 @@
 <div class="container">
-  <h1>Welcome to URL Shortener!</h1>
-  <p>Please give a URL to shorten!</p>
+
+  if @url
+    confirm posting
+  else
+    greet
+    <h1>Welcome to URL Shortener!</h1>
+    <p>Please give a URL to shorten!</p>
+  end
 
   <form method="POST" action="/urls">
     <input type="text" name="post[url]">
     <input type="submit">
   </form>
+
+  (list urls down here)
 
 </div>

@@ -5,5 +5,7 @@ class CreateUrls < ActiveRecord::Migration
       t.string :shortened_url
 
       t.timestamps
+    end
   end
+
 end

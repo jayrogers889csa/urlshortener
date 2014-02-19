@@ -4,11 +4,8 @@ get '/' do
 end
 
 post '/urls' do
-  @url = params[:post][:url]
-  Url.create(params[:post])
-  # Post.create(params[:post])
-  # @url = params[:post][:url]
-  # create a new Url
+  @url = Url.create(params[:post])
+  erb :index
 end
 
 
