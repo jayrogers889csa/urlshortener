@@ -11,5 +11,9 @@ end
 
 
 get '/:short_url' do
+  @record = Url.where('shortened_url: ?', params[:short_url])
+  @record.click_count += 1
+  @record.save
+  redirect to(@record.url)
   # redirect to appropriate "long" URL
 end

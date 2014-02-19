@@ -13,9 +13,15 @@
     <input type="submit">
   </form>
 
-  <h3>URLs You Have Shortened:</h3>
+<!--   <h3>URLs You Have Shortened:</h3>
   <% @urls.each do |url| %>
     <%= url %>
+    <br>
+  <% end %> -->
+
+  <h3>URLs You Have Shortened:</h3>
+  <% Url.all.each do |url| %>
+    <a href=<%="/#{url.shortened_url}"%>><%= url.listify %></a>
     <br>
   <% end %>
 
