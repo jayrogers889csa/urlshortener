@@ -1,13 +1,11 @@
 get '/' do
-  @urls = Url.all.map {|url| "#{url.shortened_url}  (#{url.url})"}
-
-  # Look in app/views/index.erb
+  @urls = Url.all.map {|url| url.listify}
   erb :index
 end
 
 post '/urls' do
   @url = Url.create(params[:post])
-  @urls = Url.all.map {|url| "#{url.shortened_url}  (#{url.url})"}
+  @urls = Url.all.map {|url| url.listify}
   erb :index
 end
 
