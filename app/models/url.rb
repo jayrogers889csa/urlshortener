@@ -1,3 +1,7 @@
+
+require 'pry'
+require 'pry-nav'
+
 class Url < ActiveRecord::Base
 
   before_create :shorten_url
@@ -17,13 +21,16 @@ class Url < ActiveRecord::Base
 
   def validate_url
     if self.url == ""
-      errors.add(:url, "You must enter a url into the form!")
+      return errors.add(:url, "You must enter a url into the form!")
+    end
     unless self.url.match(/\Ahttps?:\/\//)
       self.url = "http://".concat(self.url)
     end
-    response = Net::HTTP.get_response(URI(self.url)
-    unless response.class == Net::HTTPSuccess || response.class == Net::HTTPOK then
-      errors.add(:url, "this is not a valid web address")
+    binding.pry
+    response = Net::HTTP.get_response(URI(self.url))
+    binding.pry
+    unless 200 <= response.code.to_i && response.code.to_i < 400
+      return errors.add(:url, "this is not a valid web address")
     end
   end
 end

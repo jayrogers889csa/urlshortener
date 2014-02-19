@@ -4,6 +4,7 @@ get '/' do
 end
 
 post '/urls' do
+
   @url = Url.create(params[:post])
   @urls = Url.all.map {|url| url.listify}
   erb :index
